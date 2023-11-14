@@ -66,6 +66,7 @@ conexion_pppd(archivo_opciones_ppp, True) #Abrimos la conexion
 ##esto lo usamos para enviar el video
 time.sleep(10) #dormimos 10 para ver que se activa la conexion
 conexion_pppd(archivo_opciones_ppp, False) #Cerramos la conexion
+time.sleep(5) #dormimos 5 para esperar que se libere el puerto
 ##Liberamos el puerto serie podemos enviar mensajes
 #Vamos a enviar 1 mensaje
 comandos_sms = [
