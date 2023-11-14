@@ -69,7 +69,7 @@ conexion_pppd(archivo_opciones_ppp, False) #Cerramos la conexion
 time.sleep(5) #dormimos 5 para esperar que se libere el puerto
 ##Liberamos el puerto serie podemos enviar mensajes
 #Vamos a enviar 1 mensaje
-nCelular=0
+nCelular=1
 celulares =[
     "+573246631576",
     "+573012608827" 
