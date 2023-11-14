@@ -1,5 +1,22 @@
 import serial
 import time
+import subprocess
+
+def conexion_pppd(archivo_opciones, ind_abrir):
+    comando_pppd = ""
+    if(ind_abrir):
+        comando_pppd = f"sudo pppd call {archivo_opciones}"
+    else:
+        comando_pppd = f"sudo poff {archivo_opciones}"
+
+    try:
+        subprocess.run(comando_pppd, shell=True, check=True)
+        if(ind_abrir):
+            print("Conexión establecida exitosamente.")
+        else:
+            print("Conexión cerrada exitosamente.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error al establecer la conexión PPP: {e}")
 
 def enviar_comando_at(puerto_serie, comando):
     try:
@@ -39,6 +56,25 @@ comandos = [
     # Ejemplo: "AT+CGAUTH=1,1,\"TuNombreDeUsuario\",\"TuContraseña\"\r"
 ]
 
-for comando in comandos:
-    print("Enviando comando: " + comando.strip())
-    respuesta_modem = enviar_comando_at(puerto, comando)
+#for comando in comandos:
+#    print("Enviando comando: " + comando.strip())
+#    respuesta_modem = enviar_comando_at(puerto, comando)
+
+# Ejemplo de uso
+archivo_opciones_ppp = "gprs"  # Reemplaza con el nombre de tu archivo de opciones PPP
+conexion_pppd(archivo_opciones_ppp, True) #Abrimos la conexion
+##esto lo usamos para enviar el video
+time.sleep(10) #dormimos 10 para ver que se activa la conexion
+conexion_pppd(archivo_opciones_ppp, False) #Cerramos la conexion
+##Liberamos el puerto serie podemos enviar mensajes
+#Vamos a enviar 1 mensaje
+comandos_sms = [
+    'AT+CMGF=1', #configurar el modo de formato de mensaje (SMS) en un módem GSM (Global System for Mobile Communications). En particular, este comando establece el modo de formato de mensaje en modo texto.
+    'AT+CSCS="GSM', #activamos modo GSM
+    'AT+CMGS="+573012608827', #setteamos el numero de telefono
+    'hola soy vigilant desde raspberry con python 14 noviembre 2023 12:23PM sim tigo marlon  \032', #mensaje de prueba
+]
+
+for comando_sms in comandos_sms:
+    print("Enviando comando: " + comando_sms.strip())
+    respuesta_modem = enviar_comando_at(puerto, comando_sms)
