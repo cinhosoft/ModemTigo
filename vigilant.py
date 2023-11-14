@@ -81,6 +81,7 @@ comandos_sms = [
     'hola soy vigilant desde raspberry con python 14 noviembre 2023 12:23PM prueba mensaje a ' +celulares[nCelular]+' \032', #mensaje de prueba
 ]
 
+
 for comando_sms in comandos_sms:
     print("Enviando comando: " + comando_sms.strip())
     respuesta_modem = enviar_comando_at(puerto, comando_sms)
