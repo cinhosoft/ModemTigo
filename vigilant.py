@@ -72,7 +72,7 @@ time.sleep(5) #dormimos 5 para esperar que se libere el puerto
 nCelular=0
 celulares =[
     "+573246631576",
-    "+573012608827"
+    "+573012608827" 
 ]
 comandos_sms = [
     'AT+CMGF=1', #configurar el modo de formato de mensaje (SMS) en un módem GSM (Global System for Mobile Communications). En particular, este comando establece el modo de formato de mensaje en modo texto.
