@@ -69,11 +69,16 @@ conexion_pppd(archivo_opciones_ppp, False) #Cerramos la conexion
 time.sleep(5) #dormimos 5 para esperar que se libere el puerto
 ##Liberamos el puerto serie podemos enviar mensajes
 #Vamos a enviar 1 mensaje
+nCelular=0
+celulares =[
+    "+573246631576",
+    "+573012608827"
+]
 comandos_sms = [
     'AT+CMGF=1', #configurar el modo de formato de mensaje (SMS) en un módem GSM (Global System for Mobile Communications). En particular, este comando establece el modo de formato de mensaje en modo texto.
-    'AT+CSCS="GSM', #activamos modo GSM
-    'AT+CMGS="+573012608827', #setteamos el numero de telefono
-    'hola soy vigilant desde raspberry con python 14 noviembre 2023 12:23PM sim tigo marlon  \032', #mensaje de prueba
+    'AT+CSCS="GSM"', #activamos modo GSM
+    'AT+CMGS="'+celulares[nCelular] +'"', #setteamos el numero de telefono
+    'hola soy vigilant desde raspberry con python 14 noviembre 2023 12:23PM prueba mensaje a ' +celulares[nCelular]+' \032', #mensaje de prueba
 ]
 
 for comando_sms in comandos_sms:
